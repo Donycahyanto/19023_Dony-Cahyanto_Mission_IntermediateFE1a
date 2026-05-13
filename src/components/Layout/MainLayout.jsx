@@ -1,21 +1,20 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const MainLayout = () => {
   const location = useLocation();
-  
-  // Tentukan varian navbar berdasarkan path
-  let navVariant = "default";
-  if (location.pathname === "/login" || location.pathname === "/register") {
-    navVariant = "auth"; // Hanya logo saja
-  }
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (
-    <div className="min-h-screen bg-[#FDF2F2]">
-      <Navbar variant={navVariant} />
-      <main className={navVariant === "auth" ? "pt-0" : "pt-20"}>
+    <div className="min-h-screen bg-[#FDF7F7]">
+      <Navbar variant={isAuthPage ? "auth" : "default"} />
+
+      <main className={isAuthPage ? "pt-[74px] md:pt-[80px]" : "pt-[74px] md:pt-[80px]"}>
         <Outlet />
       </main>
+
+      {!isAuthPage && <Footer />}
     </div>
   );
 };
